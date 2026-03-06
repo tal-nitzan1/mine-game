@@ -1,0 +1,72 @@
+body {
+margin: 0;
+height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: #2c2c2c;
+background-image: url("out-side1.avif");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+min-height: 100vh;
+}
+
+h1 {
+font-family: Arial, sans-serif;
+color: white;
+}
+
+.grid {
+width: 900px;
+height: 900px;
+display: grid;
+grid-template-columns: repeat(6, 1fr);
+grid-template-rows: repeat(6, 1fr);
+gap: 8px;
+margin-top: 20px;
+}
+
+.cell {
+background-color: var(--cell-color,rgb(0, 93, 185)); 
+cursor: pointer;
+transform: scale(1);  
+transition: transform 0.3s ease, background-color 0.3s ease;
+border-radius: 16px;
+user-select: none; 
+position: relative;
+background-image: url("dirt.jpg");
+}
+
+.cell.errorClick{
+background-image: url("error.png");
+}
+
+.cell.clicked {
+transform: scale(0.9);  
+}
+
+.value {
+  font-family: 'Orbitron', sans-serif;
+  margin: 5px 10px;
+  display: inline-block;
+  min-width: 18px;
+  text-align: center;
+  padding: 3px 3px;
+  background: #927c4c;
+  color: white;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  font-size: 14px;
+}
+
+.emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  pointer-events: none; /* so clicks pass through emoji span */
+}
