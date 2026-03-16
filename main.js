@@ -35,51 +35,51 @@ for (let i = 0; i < tileCount; i++) {
         blockBrake++;
 
         cell.data.hp--;
+
         if(cell.data.hp <= 0){
+            // this means the tile exploded ! - need to generate also the next layer
+            
             counter += cell.data.value; // add clicked value to the overall money count
             cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
             cell.data.hpFactor +=1;
-            cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next laye
-        }
-        
-        counterDisplay.textContent = counter;
-        diamondCounterDisplay.textContent = diamondCounter;
-        
-        cell.data = GetNextTileData(cell); // this will generate another tile
+            cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next layer
 
-        if (cell.data.type == "TNT") {
-            cell.innerHTML = `
-        <span class="value">`+ cell.data.value + `</span>
-        <span class="emoji">🧨</span>`;
-        }
-        if (cell.data.type == "Diamond") {
-            cell.innerHTML = `
-        <span class="value">`+ cell.data.value + `</span>
-        <span class="emoji">💎</span>`;
-        }
-        if (cell.data.type == "Normal") {
-            cell.innerHTML = `
-        <span class="value">`+ cell.data.value + `</span>
-        <span class="emoji"></span>`;
-        }
+             counterDisplay.textContent = counter;
+            diamondCounterDisplay.textContent = diamondCounter;
+            
+            cell.data = GetNextTileData(cell); // this will generate another tile
 
-        // Starting the animation
-        this.classList.add("clicked");
+            if (cell.data.type == "TNT") {
+                cell.innerHTML = `
+            <span class="value">`+ cell.data.value + `</span>
+            <span class="emoji">🧨</span>`;
+            }
+            if (cell.data.type == "Diamond") {
+                cell.innerHTML = `
+            <span class="value">`+ cell.data.value + `</span>
+            <span class="emoji">💎</span>`;
+            }
+            if (cell.data.type == "Normal") {
+                cell.innerHTML = `
+            <span class="value">`+ cell.data.value + `</span>
+            <span class="emoji"></span>`;
+            }
 
-        setTimeout(() => {
-            this.style.setProperty("--cell-color", randomColor());
-            this.classList.remove("clicked");
-        }, 150);
+            // Starting the animation
+            this.classList.add("clicked");
 
-        }
+            setTimeout(() => {
+                this.style.setProperty("--cell-color", randomColor());
+                this.classList.remove("clicked");
+            }, 150);
 
-        this.classList.add("clicked");
-        setTimeout(() => {
-            this.classList.remove("clicked");
-        }, 150);
-        
-        
+            }
 
+            this.classList.add("clicked");
+            setTimeout(() => {
+                this.classList.remove("clicked");
+            }, 150);
+            }
     });
 
     grid.appendChild(cell);
@@ -117,20 +117,23 @@ function randomInRange(min, max) {
 // this will generate another tile from the different type we can build. the data define how the tile acts and it role.
 function GetNextTileData(cell) {
 
-    var tileDataNormal = {
+    let tileDataNormal = {
         value: cell.data.value,
         type: "Normal",
         hp: cell.data.hp,
+        hpFactor: cell.data.hpFactor,
     };
-    var tileDataTNT = {
+    let tileDataTNT = {
         value: cell.data.value,
         type: "TNT",
         hp: cell.data.hp,
+        hpFactor: cell.data.hpFactor,
     };
-    var tileDataDiamond = {
+    let tileDataDiamond = {
         value: cell.data.value,
         type: "Diamond",
         hp: cell.data.up,
+        hpFactor: cell.data.hpFactor,
     };
 
     // use weight method to generarte random tiles but to make sure what we generate
