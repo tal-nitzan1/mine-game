@@ -17,14 +17,12 @@ for (let i = 0; i < tileCount; i++) {
     let tileData = {
         value: 1,
         type: "Normal",
-        hp: 2,
-        hp2: 0,
+        hp: 1,
+        hpFactor: 1,
     };
 
     // all first tiles are normal always
     cell.data = tileData;
-
-    cell.data.hp2 = cell.data.hp;
 
     cell.innerHTML = `
         <span class="value">`+ cell.data.value + `</span>
@@ -36,12 +34,12 @@ for (let i = 0; i < tileCount; i++) {
         playTileSound(cell);
         blockBrake++;
 
-        cell.data.hp2--;
-        if(cell.data.hp2 <= 0){
-            cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
-            cell.data.hp *= 2;
+        cell.data.hp--;
+        if(cell.data.hp <= 0){
             counter += cell.data.value; // add clicked value to the overall money count
-            cell.data.hp2 = cell.data.hp;
+            cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
+            cell.data.hpFactor +=1;
+            cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next laye
         }
         
         counterDisplay.textContent = counter;
