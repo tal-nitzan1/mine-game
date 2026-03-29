@@ -26,59 +26,71 @@ for (let i = 0; i < tileCount; i++) {
 
     cell.innerHTML = `
         <span class="value">`+ cell.data.value + `</span>
-        <span class="emoji"></span>`;
+        <span class="emoji"></span>
+        <span class="hp-bar"><span class="hp-fill"></span></span>`;
 
-    cell.addEventListener("click", function () {
+    cell.addEventListener("click", function () { //this happen everytime a user click on a tile
 
         if(layer(cell)){
-        playTileSound(cell);
-        blockBrake++;
+            playTileSound(cell);
+            blockBrake++;
 
-        cell.data.hp--;
+            // decrease HP
+            cell.data.hp--;
 
-        if(cell.data.hp <= 0){
-            // this means the tile exploded ! - need to generate also the next layer
-            
-            counter += cell.data.value; // add clicked value to the overall money count
-            cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
-            cell.data.hpFactor +=1;
-            cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next layer
-
-             counterDisplay.textContent = counter;
-            diamondCounterDisplay.textContent = diamondCounter;
-            
-            cell.data = GetNextTileData(cell); // this will generate another tile
-
-            if (cell.data.type == "TNT") {
-                cell.innerHTML = `
-            <span class="value">`+ cell.data.value + `</span>
-            <span class="emoji">🧨</span>`;
-            }
-            if (cell.data.type == "Diamond") {
-                cell.innerHTML = `
-            <span class="value">`+ cell.data.value + `</span>
-            <span class="emoji">💎</span>`;
-            }
-            if (cell.data.type == "Normal") {
-                cell.innerHTML = `
-            <span class="value">`+ cell.data.value + `</span>
-            <span class="emoji"></span>`;
+            let fillSpan = cell.querySelector(".hp-fill");
+            if (fillSpan) {
+                
+                // Calculate the percentage of HP left
+                let hpPercentage = (cell.data.hp / cell.data.hpFactor) * 100;
+                 if (cell.data.type == "TNT"){
+                    hpPercentage = 0; //if this is a bomb we will go directly to zero !
+                    cell.data.hp = 0;
+                 }
+                fillSpan.style.width = hpPercentage + "%";
             }
 
-            // Starting the animation
-            this.classList.add("clicked");
+            if(cell.data.hp <= 0){
+                // this means the tile exploded ! - need to generate also the next layer
+                
+                counter += cell.data.value; // add clicked value to the overall money count
+                cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
+                cell.data.hpFactor +=1;
+                cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next layer
 
-            setTimeout(() => {
-                this.style.setProperty("--cell-color", randomColor());
-                this.classList.remove("clicked");
-            }, 150);
+                counterDisplay.textContent = counter;
+                diamondCounterDisplay.textContent = diamondCounter;
+                
+                cell.data = GetNextTileData(cell); // this will generate another tile
 
-            }
+                // 2. WAIT 150ms for the green bar to finish shrinking before resetting the HTML
+                setTimeout(() => {
+                    let emoji = "";
+                    if (cell.data.type == "TNT") emoji = "🧨";
+                    if (cell.data.type == "Diamond") emoji = "💎";
 
-            this.classList.add("clicked");
-            setTimeout(() => {
-                this.classList.remove("clicked");
-            }, 150);
+                    // Reset the inner HTML with a full bar again
+                    cell.innerHTML = `
+                        <span class="value">${cell.data.value}</span>
+                        <span class="emoji">${emoji}</span>
+                        <span class="hp-bar"><span class="hp-fill" style="width: 100%;"></span></span>`;
+                        
+                }, 150); //150 = 0.15 animation for fill we have in the css
+
+                // Starting the animation
+                this.classList.add("clicked");
+
+                setTimeout(() => {
+                    this.style.setProperty("--cell-color", randomColor());
+                    this.classList.remove("clicked");
+                }, 150);
+
+                }
+
+                this.classList.add("clicked");
+                setTimeout(() => {
+                    this.classList.remove("clicked");
+                }, 150);
             }
     });
 
@@ -132,7 +144,7 @@ function GetNextTileData(cell) {
     let tileDataDiamond = {
         value: cell.data.value,
         type: "Diamond",
-        hp: cell.data.up,
+        hp: cell.data.hp,
         hpFactor: cell.data.hpFactor,
     };
 
