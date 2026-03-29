@@ -43,22 +43,26 @@ position: relative;
 .hp-bar {
   width: 110px;
   height: 1.1em;
-  background-color: rgb(116, 112, 112);
+  background-color: #1a1a1a; /* Very dark gray/black */
+  border: 2px solid #333; /* Dark border to frame it */
   border-radius: 1.5em;
   position: absolute;
   bottom: 13px;
   left: 15px;
-  overflow: hidden; /* CRITICAL: keeps the square fill inside the rounded container */
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5); /* Optional: makes it look sunken */
+  overflow: hidden;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.8); /* Deep sunken look */
+  opacity: 0.7;
 }
 
 .hp-fill {
   display: block;
   height: 100%;
-  width: 100%; /* Starts full */
-  background: green;
-  /* No need for border-radius here, the overflow: hidden on the parent handles it */
-  transition: width 0.15s ease-out; /* Makes the bar drain smoothly */
+  width: 100%;
+  /* A cool blue-to-cyan gradient */
+  background: linear-gradient(90deg, #0052d4, #4364f7, #6fb1fc);
+  /* A little inner glow */
+  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.5);
+  transition: width 0.15s ease-out; 
 }
 
 
