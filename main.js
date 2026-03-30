@@ -1,13 +1,20 @@
 const grid = document.querySelector(".grid");
-const counterDisplay = document.getElementById("counter");
+const drillUpgradeLevelDisplay = document.getElementById("drillUpgradeLevel");
 const diamondCounterDisplay = document.getElementById("diamondCounter");
 const clickSound = document.getElementById("clickSound");
+const drillUpgradeCostDisply = document.getElementById("drillUpgradeCost")
 let diamondCounter = 30;
 let tileCount = 36;
 let totalBlocks = 720;
 let blockBrake = 36;
 let layer1 = 20;
 let drillUpgradeCost = 1;
+let drillUpgradeLevel = 1;
+let dpc = 1;
+
+ diamondCounterDisplay.textContent = diamondCounter;
+ drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
+ drillUpgradeCostDisply.textContent = drillUpgradeCost;
 
 for (let i = 0; i < tileCount; i++) {
     // This is the place i'm creating the tiles
@@ -63,6 +70,7 @@ for (let i = 0; i < tileCount; i++) {
                 }
 
                 diamondCounterDisplay.textContent = diamondCounter;
+                
                 
                 cell.data = GetNextTileData(cell); // this will generate another tile
 
@@ -181,6 +189,11 @@ function upgradeDrill(){
     if(diamondCounter >= drillUpgradeCost){
         diamondCounter -= drillUpgradeCost;
         diamondCounterDisplay.textContent = diamondCounter;
+        drillUpgradeLevel += 1;
+        drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
+        drillUpgradeCost += 3;
+        drillUpgradeCostDisply.textContent = drillUpgradeCost;
+
     }
 }
 
