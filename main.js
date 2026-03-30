@@ -43,7 +43,11 @@ for (let i = 0; i < tileCount; i++) {
             blockBrake++;
 
             // decrease HP
-            cell.data.hp--;
+            cell.data.hp -= dpc;
+
+            if(cell.data.hp < 0){
+                cell.data.hp = 0;
+            }
 
             let fillSpan = cell.querySelector(".hp-fill");
             if (fillSpan) {
@@ -57,7 +61,7 @@ for (let i = 0; i < tileCount; i++) {
                 fillSpan.style.width = hpPercentage + "%";
             }
 
-            if(cell.data.hp <= 0){
+            if(cell.data.hp == 0){
                 // this means the tile exploded ! - need to generate also the next layer
                 
                 cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
@@ -193,7 +197,7 @@ function upgradeDrill(){
         drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
         drillUpgradeCost += 3;
         drillUpgradeCostDisply.textContent = drillUpgradeCost;
-
+        dpc++;
     }
 }
 
