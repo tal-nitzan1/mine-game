@@ -8,6 +8,7 @@
 </head>
 <body>
 <title>mine-game</title>
+
 <audio id="soundNormal" src="click.mp3"></audio>
 <audio id="soundTNT" src="tnt.mp3"></audio>
 <audio id="soundDiamond" src="diamond.mp3"></audio>
@@ -16,19 +17,27 @@
 <script src="main.js" defer></script>
 <script src="style.css" defer></Script>
 
-<h1>Money: <span id="counter">0</span></h1>
-<h1>💎Diamond: <span id="diamondCounter">0</span></h1>
+<div class="main-layout">
 
-<div class="grid"></div>
+  <div class="game-area">
+    <h1>💎 Diamond:<span id="diamondCounter">0</span></h1>
+    <div class="grid">
+      </div>
+  </div>
 
-<div class="cell">
-    <div class="hp-bar">
-        <div class="hp-fill">
-        </div>    
+  <div class="controls-area">
+    <div>
+        <span class="improvmentText">
+            <img src="handicon.svg" alt="Click icon" width="50" height="50">
+            Drill Power
+        </span>
+        <span class="improvmentText">Level:1</span>
+        <button id="upgrade-drill-btm" onclick="upgradeDrill">upgrade<span> 1💎</button>
     </div>
+    
+  </div>
+
 </div>
-
-
 
 </body>
 </html>

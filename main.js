@@ -2,12 +2,12 @@ const grid = document.querySelector(".grid");
 const counterDisplay = document.getElementById("counter");
 const diamondCounterDisplay = document.getElementById("diamondCounter");
 const clickSound = document.getElementById("clickSound");
-let counter = 0;
-let diamondCounter = 0;
+let diamondCounter = 30;
 let tileCount = 36;
 let totalBlocks = 720;
 let blockBrake = 36;
 let layer1 = 20;
+let drillUpgradeCost = 1;
 
 for (let i = 0; i < tileCount; i++) {
     // This is the place i'm creating the tiles
@@ -53,12 +53,15 @@ for (let i = 0; i < tileCount; i++) {
             if(cell.data.hp <= 0){
                 // this means the tile exploded ! - need to generate also the next layer
                 
-                counter += cell.data.value; // add clicked value to the overall money count
                 cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
-                cell.data.hpFactor +=1;
+                cell.data.hpFactor +=2;
                 cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next layer
 
-                counterDisplay.textContent = counter;
+                if(cell.data.type == "Diamond"){
+                    playSound("soundDiamond");
+                    diamondCounter++;
+                }
+
                 diamondCounterDisplay.textContent = diamondCounter;
                 
                 cell.data = GetNextTileData(cell); // this will generate another tile
@@ -102,8 +105,7 @@ function playTileSound(cell) {
     if (cell.data.type == "TNT") {
         playSound("soundTNT");
     } else if (cell.data.type == "Diamond") {
-        playSound("soundDiamond");
-        diamondCounter++;
+        playSound("soundNormal");
     } else {
         playSound("soundNormal");
     }
@@ -173,6 +175,13 @@ function layer(cell){
         }
     }
     return true;    
+}
+
+function upgradeDrill(){
+    if(diamondCounter >= drillUpgradeCost){
+        diamondCounter -= drillUpgradeCost;
+        diamondCounterDisplay.textContent = diamondCounter;
+    }
 }
 
 
