@@ -72,14 +72,13 @@ color: white;
 width: 900px;
 height: 900px;
 display: grid;
-grid-template-columns: repeat(6, 1fr);
-grid-template-rows: repeat(6, 1fr);
+grid-template-columns: repeat(5, 1fr);
+grid-template-rows: repeat(5, 1fr);
 gap: 8px;
 margin-top: 20px;
 }
 
 .cell {
-background-color: var(--cell-color,rgb(0, 93, 185)); 
 cursor: pointer;
 transform: scale(1);  
 transition: transform 0.3s ease, background-color 0.3s ease;
@@ -91,7 +90,7 @@ position: relative;
 }
 
 .hp-bar {
-  width: 110px;
+  width: 140px;
   height: 1.1em;
   background-color: #1a1a1a; /* Very dark gray/black */
   border: 2px solid #333; /* Dark border to frame it */

@@ -3,16 +3,29 @@ const drillUpgradeLevelDisplay = document.getElementById("drillUpgradeLevel");
 const diamondCounterDisplay = document.getElementById("diamondCounter");
 const clickSound = document.getElementById("clickSound");
 const drillUpgradeCostDisply = document.getElementById("drillUpgradeCost")
-let diamondCounter = 200;
-let tileCount = 36;
-let totalBlocks = 720;
-let blockBrake = 36;
-let layer1 = 20;
+let diamondCounter = 200000;
+let tileCount = 25;
+let totalBlocks = 125;
+let blockBrake = 25;
+let layer1 = 5;
 let drillUpgradeCost = 1;
 let drillUpgradeLevel = 1;
 let dpc = 1;
 let boom = [];
 let bombHp = 0;
+let currentLayer = 1;
+
+const layerImage = [
+    "dirt.jpg",
+    "claystone.jpg",
+    "mudstone.jpg",
+    "bedrock.jpg",
+    "lavaseep.jpg",
+    "magma.jpg",
+    "goldveins.jpg",
+    "obsidian.jpg",
+    "aliencore.jpg"
+];
 
  diamondCounterDisplay.textContent = diamondCounter;
  drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
@@ -30,6 +43,7 @@ for (let i = 0; i < tileCount; i++) {
         type: "Normal",
         hp: 1,
         hpFactor: 1,
+        currentLayer: 1,
     };
 
     // all first tiles are normal always
@@ -63,8 +77,6 @@ function clickEvent(cell){
                 cell.data.hp = 0;
             }
 
-    
-
             let fillSpan = cell.querySelector(".hp-fill");
             if (fillSpan) {
                 
@@ -94,6 +106,16 @@ function clickEvent(cell){
                 
                 cell.data = GetNextTileData(cell); // this will generate another tile
 
+                cell.data.currentLayer++;
+
+                let imageIndex = Math.floor((cell.data.currentLayer - 1) / 5);
+
+                if (imageIndex >= layerImage.length) {
+                    imageIndex = layerImage.length - 1;
+                }
+
+                const currentTileImage = layerImage[imageIndex];
+
                 // 2. WAIT 150ms for the green bar to finish shrinking before resetting the HTML
                 setTimeout(() => {
                     let emoji = "";
@@ -105,6 +127,8 @@ function clickEvent(cell){
                         <span class="value">${cell.data.value}</span>
                         <span class="emoji">${emoji}</span>
                         <span class="hp-bar"><span class="hp-fill" style="width: 100%;"></span></span>`;
+
+                        cell.style.backgroundImage = "url(" + currentTileImage + ")";
                         
                 }, 150); //150 = 0.15 animation for fill we have in the css
 
@@ -112,7 +136,6 @@ function clickEvent(cell){
                 cell.classList.add("clicked");
 
                 setTimeout(() => {
-                    cell.style.setProperty("--cell-color", randomColor());
                     cell.classList.remove("clicked");
                 }, 150);
 
@@ -167,18 +190,21 @@ function GetNextTileData(cell) {
         type: "Normal",
         hp: cell.data.hp,
         hpFactor: cell.data.hpFactor,
+        currentLayer: cell.data.currentLayer,
     };
     let tileDataTNT = {
         value: cell.data.value,
         type: "TNT",
         hp: cell.data.hp,
         hpFactor: cell.data.hpFactor,
+        currentLayer: cell.data.currentLayer
     };
     let tileDataDiamond = {
         value: cell.data.value,
         type: "Diamond",
         hp: cell.data.hp,
         hpFactor: cell.data.hpFactor,
+        currentLayer: cell.data.currentLayer,
     };
 
     // use weight method to generarte random tiles but to make sure what we generate
