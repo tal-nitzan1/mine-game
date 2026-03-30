@@ -3,7 +3,7 @@ const drillUpgradeLevelDisplay = document.getElementById("drillUpgradeLevel");
 const diamondCounterDisplay = document.getElementById("diamondCounter");
 const clickSound = document.getElementById("clickSound");
 const drillUpgradeCostDisply = document.getElementById("drillUpgradeCost")
-let diamondCounter = 30;
+let diamondCounter = 200;
 let tileCount = 36;
 let totalBlocks = 720;
 let blockBrake = 36;
@@ -11,6 +11,8 @@ let layer1 = 20;
 let drillUpgradeCost = 1;
 let drillUpgradeLevel = 1;
 let dpc = 1;
+let boom = [];
+let bombHp = 0;
 
  diamondCounterDisplay.textContent = diamondCounter;
  drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
@@ -20,6 +22,8 @@ for (let i = 0; i < tileCount; i++) {
     // This is the place i'm creating the tiles
     const cell = document.createElement("div");
     cell.classList.add("cell");
+
+    boom[i] = cell
 
     let tileData = {
         value: 1,
@@ -31,6 +35,8 @@ for (let i = 0; i < tileCount; i++) {
     // all first tiles are normal always
     cell.data = tileData;
 
+    bombHp = cell.data.hp;
+
     cell.innerHTML = `
         <span class="value">`+ cell.data.value + `</span>
         <span class="emoji"></span>
@@ -38,6 +44,14 @@ for (let i = 0; i < tileCount; i++) {
 
     cell.addEventListener("click", function () { //this happen everytime a user click on a tile
 
+        clickEvent(cell);
+    });
+
+    grid.appendChild(cell);
+    
+}
+
+function clickEvent(cell){
         if(layer(cell)){
             playTileSound(cell);
             blockBrake++;
@@ -48,6 +62,8 @@ for (let i = 0; i < tileCount; i++) {
             if(cell.data.hp < 0){
                 cell.data.hp = 0;
             }
+
+    
 
             let fillSpan = cell.querySelector(".hp-fill");
             if (fillSpan) {
@@ -93,25 +109,28 @@ for (let i = 0; i < tileCount; i++) {
                 }, 150); //150 = 0.15 animation for fill we have in the css
 
                 // Starting the animation
-                this.classList.add("clicked");
+                cell.classList.add("clicked");
 
                 setTimeout(() => {
-                    this.style.setProperty("--cell-color", randomColor());
-                    this.classList.remove("clicked");
+                    cell.style.setProperty("--cell-color", randomColor());
+                    cell.classList.remove("clicked");
                 }, 150);
 
                 }
 
-                this.classList.add("clicked");
+                cell.classList.add("clicked");
                 setTimeout(() => {
-                    this.classList.remove("clicked");
+                    cell.classList.remove("clicked");
                 }, 150);
             }
-    });
-
-    grid.appendChild(cell);
-    
 }
+
+function bombClickEvent(cell){
+    cell.data.hp = 0;
+    clickEvent(cell);
+}
+
+
 
 function playTileSound(cell) {
     if (cell.data.type == "TNT") {
@@ -189,6 +208,7 @@ function layer(cell){
     return true;    
 }
 
+
 function upgradeDrill(){
     if(diamondCounter >= drillUpgradeCost){
         diamondCounter -= drillUpgradeCost;
@@ -198,6 +218,17 @@ function upgradeDrill(){
         drillUpgradeCost += 3;
         drillUpgradeCostDisply.textContent = drillUpgradeCost;
         dpc++;
+    }
+}
+
+function atomicBomb(){
+    if(diamondCounter >= 100){
+        for(let i = 0; i < boom.length; i++){
+            bombClickEvent(boom[i])
+            //playSound("soundTNT");
+        }
+        diamondCounter -= 100;
+        diamondCounterDisplay.textContent = diamondCounter;
     }
 }
 
