@@ -24,7 +24,9 @@ const layerImage = [
     "magma.jpg",
     "goldveins.jpg",
     "obsidian.jpg",
-    "aliencore.jpg"
+    "crystalcavern.jpg",  
+    "aliencore.jpg",
+    "layer50.jpg"
 ];
 
  diamondCounterDisplay.textContent = diamondCounter;
@@ -165,14 +167,6 @@ function playTileSound(cell) {
     }
 }
 
-// generate random color to a tile
-function randomColor() {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    return `rgb(${r}, ${g}, ${b})`;
-}
-
 function playSound(id) {
     const sound = document.getElementById(id).cloneNode();
     sound.play();
@@ -228,12 +222,14 @@ function layer(cell){
         }
         if(blockBrake == totalBlocks){
             blockBrake = 0;
-            layer1 *= 2;
+            layer1 += 5;
+        }
+        if(layer1 == 51){
+            return false;
         }
     }
     return true;    
 }
-
 
 function upgradeDrill(){
     if(diamondCounter >= drillUpgradeCost){
@@ -257,5 +253,3 @@ function atomicBomb(){
         diamondCounterDisplay.textContent = diamondCounter;
     }
 }
-
-
