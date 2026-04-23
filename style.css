@@ -69,8 +69,9 @@ color: white;
 }
 
 .grid {
-width: 900px;
-height: 900px;
+width: 90vw;
+max-width: 900px;
+aspect-ratio: 1 / 1;
 display: grid;
 grid-template-columns: repeat(5, 1fr);
 grid-template-rows: repeat(5, 1fr);

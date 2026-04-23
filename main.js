@@ -70,7 +70,6 @@ for (let i = 0; i < tileCount; i++) {
 function clickEvent(cell){
         if(layer(cell)){
             playTileSound(cell);
-            blockBrake++;
 
             // decrease HP
             cell.data.hp -= dpc;
@@ -97,6 +96,8 @@ function clickEvent(cell){
                 cell.data.value++; // This is a simple cell - the rule for those is to always add 1 to its money value when digging.
                 cell.data.hpFactor +=2;
                 cell.data.hp = cell.data.hpFactor; //this line set how much the HP increase in next layer
+
+                blockBrake++;
 
                 if(cell.data.type == "Diamond"){
                     playSound("soundDiamond");
