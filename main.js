@@ -54,10 +54,10 @@ for (let i = 0; i < tileCount; i++) {
     bombHp = cell.data.hp;
 
     cell.innerHTML = `
-        <span class="value">`+ cell.data.value + `</span>
-        <span class="emoji"></span>
-        <span class="hp-bar"><span class="hp-fill"></span></span>`;
-
+    <span class="value">${cell.data.value}</span>
+    <span class="emoji"></span>
+    <span class="hp-bar"><span class="hp-fill"></span></span>`;
+    
     cell.addEventListener("click", function () { //this happen everytime a user click on a tile
 
         clickEvent(cell);

@@ -165,7 +165,6 @@ transform: scale(0.9);
   font-size: 40px;
   pointer-events: none; /* so clicks pass through emoji span */
 }
-
 #mainMenu{
     position: absolute;
     width: 100%;
@@ -270,3 +269,126 @@ transform: scale(0.9);
     background: darkred;
     color: white;
 }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, #45e9ff, #19b153, #5c3202);
+    background-size: cover;
+    user-select: none;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* סידור גמיש: במחשב זה שורה, בטלפון זה יהיה עמודה */
+.main-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controls-area {
+  display: flex;
+  flex-direction: column; 
+  gap: 20px;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  min-width: 250px;
+}
+
+/* הגריד הופך לרספונסיבי */
+.grid {
+    width: 90vw;
+    max-width: 500px;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 5px;
+}
+
+.cell {
+    cursor: pointer;
+    position: relative;
+    border-radius: 8px;
+    background-size: cover;
+    transition: transform 0.1s;
+}
+
+.cell.clicked { transform: scale(0.9); }
+
+/* מד החיים בתוך התא */
+.hp-bar {
+    width: 80%;
+    height: 6px;
+    background: #1a1a1a;
+    position: absolute;
+    bottom: 5px;
+    left: 10%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.hp-fill {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+
+.value {
+    font-size: 12px;
+    padding: 2px 4px;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    border-radius: 3px;
+}
+
+.emoji {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+}
+
+/* כפתורי תפריט */
+.menu-btn, .world-btn {
+    width: 250px;
+    padding: 15px;
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* --- כאן הקסם לטלפונים --- */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+    }
+    .controls-area {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .game-title { font-size: 40px; }
+}
+
