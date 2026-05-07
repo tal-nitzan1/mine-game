@@ -207,10 +207,10 @@ function GetNextTileData(cell) {
     if (num >= 1 && num <= 925000) {
         return tileDataNormal;
     }
-    if (num > 925000 && num <= 980000) {
+    if (num > 900000 && num <= 950000) {
         return tileDataTNT;
     }
-    if (num > 980000 && num <= 1000000) {
+    if (num > 950000 && num <= 1000000) {
         return tileDataDiamond;
     }
 }
@@ -270,4 +270,24 @@ function startGame(){
         gameScreen.style.display = "flex";
 
     }, 500);
+}
+
+const worldMenu = document.getElementById("worldMenu");
+
+function openWorldMenu(){
+
+    mainMenu.style.display = "none";
+    worldMenu.style.display = "flex";
+}
+
+function closeWorldMenu(){
+
+    worldMenu.style.display = "none";
+    mainMenu.style.display = "flex";
+}
+
+function selectWorld(worldNumber){
+
+    worldMenu.style.display = "none";
+    gameScreen.style.display = "flex";
 }
