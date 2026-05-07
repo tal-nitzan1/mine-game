@@ -165,3 +165,51 @@ transform: scale(0.9);
   font-size: 40px;
   pointer-events: none; /* so clicks pass through emoji span */
 }
+
+#mainMenu{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+
+    background: linear-gradient(to bottom, #45e9ff, #19b153, #5c3202);
+
+    z-index: 999;
+
+    transition: opacity 0.5s ease;
+}
+
+.game-title{
+    font-size: 60px;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-shadow: 0 0 20px black;
+}
+
+.menu-btn{
+    width: 250px;
+    padding: 20px;
+
+    font-size: 28px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 15px;
+
+    cursor: pointer;
+
+    background: #1a1a1a;
+    color: white;
+
+    transition: 0.2s;
+}
+
+.menu-btn:hover{
+    transform: scale(1.08);
+    background: #4364f7;
+}

@@ -16,7 +16,21 @@
 
 <script src="main.js" defer></script>
 
-<div class="main-layout">
+<div id="mainMenu">
+
+    <h1 class="game-title">⛏ Mine Game ⛏</h1>
+
+    <button class="menu-btn" onclick="startGame()">
+        ▶ Play
+    </button>
+
+    <button class="menu-btn">
+        🌍 World
+    </button>
+
+</div>
+
+<div class="main-layout" id="gameScreen">
 
   <div class="game-area">
     <h1>💎 Diamond:<span id="diamondCounter">0</span></h1>

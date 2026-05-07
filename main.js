@@ -254,3 +254,20 @@ function atomicBomb(){
         diamondCounterDisplay.textContent = diamondCounter;
     }
 }
+
+const gameScreen = document.getElementById("gameScreen");
+const mainMenu = document.getElementById("mainMenu");
+
+gameScreen.style.display = "none";
+
+function startGame(){
+
+    mainMenu.style.opacity = "0";
+
+    setTimeout(() => {
+
+        mainMenu.style.display = "none";
+        gameScreen.style.display = "flex";
+
+    }, 500);
+}
