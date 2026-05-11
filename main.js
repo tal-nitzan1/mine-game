@@ -291,3 +291,12 @@ function selectWorld(worldNumber){
     worldMenu.style.display = "none";
     gameScreen.style.display = "flex";
 }
+
+function toggleShop() {
+    const shop = document.getElementById("shopMenu");
+    if (shop.style.display === "flex") {
+        shop.style.display = "none";
+    } else {
+        shop.style.display = "flex";
+    }
+}

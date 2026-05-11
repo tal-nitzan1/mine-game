@@ -65,30 +65,31 @@
 
   <div class="game-area">
     <h1>💎 Diamond:<span id="diamondCounter">0</span></h1>
-    <div class="grid">
-      </div>
-  </div>
+    <button class="menu-btn" onclick="toggleShop()">🛒 Upgrades Shop</button>
+    <div class="grid"></div>
+</div>
 
-  <div class="controls-area">
-    <div>
-        <span class="improvmentText">
-            <img src="handicon.svg" alt="Click icon" width="50" height="50">
-            Drill Power
-        </span>
-        <span class="improvmentText">Level:<span id="drillUpgradeLevel">1</span></span>
-        <button id="upgrade-drill-btm" onclick="upgradeDrill()">upgrade:<span id="drillUpgradeCost">1</span>💎</button>
-    </div>
-    <div>
-        <span class="improvmentText">
-            <img src="handicon.svg" alt="Click icon" width="50" height="50">
-            Atomic Bomb
-        </span>
-        <button id="buy-atomic-bomb" onclick="atomicBomb()">Atomic Bomb:100💎</button>
-    </div>
-    
-    
-  </div>
+<div id="shopMenu" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="toggleShop()">&times;</span>
+        <h2 class="game-title">⚒️ Shop</h2>
+        
+        <div class="upgrade-item">
+            <span class="improvmentText">
+                <img src="handicon.svg" alt="Click icon" width="40" height="40">
+                Drill Power (Lvl <span id="drillUpgradeLevel">1</span>)
+            </span>
+            <button class="menu-btn" onclick="upgradeDrill()">Upgrade: <span id="drillUpgradeCost">1</span> 💎</button>
+        </div>
 
+        <div class="upgrade-item">
+            <span class="improvmentText">
+                <img src="handicon.svg" alt="Click icon" width="40" height="40">
+                Atomic Bomb
+            </span>
+            <button class="menu-btn" onclick="atomicBomb()">Buy: 100 💎</button>
+        </div>
+    </div>
 </div>
 
 </body>
