@@ -3,6 +3,9 @@ const drillUpgradeLevelDisplay = document.getElementById("drillUpgradeLevel");
 const diamondCounterDisplay = document.getElementById("diamondCounter");
 const clickSound = document.getElementById("clickSound");
 const drillUpgradeCostDisply = document.getElementById("drillUpgradeCost")
+const diamondMultiCostDisplay = document.getElementById("diamondMultiCost");
+const diamondMultiLevelDisplay = document.getElementById("diamondMultiLevel");
+
 let diamondCounter = 200000;
 let tileCount = 25;
 let totalBlocks = 125;
@@ -14,6 +17,9 @@ let dpc = 1;
 let boom = [];
 let bombHp = 0;
 let currentLayer = 1;
+let diamondMultiCost = 50;
+let diamondMultiLevel = 1;
+let diamondMulti = 1;
 
 const layerImage = [
     "dirt.jpg",
@@ -32,6 +38,7 @@ const layerImage = [
  diamondCounterDisplay.textContent = diamondCounter;
  drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
  drillUpgradeCostDisply.textContent = drillUpgradeCost;
+ diamondMultiCostDisplay.textContent = diamondMultiCost;
 
 for (let i = 0; i < tileCount; i++) {
     // This is the place i'm creating the tiles
@@ -101,7 +108,11 @@ function clickEvent(cell){
 
                 if(cell.data.type == "Diamond"){
                     playSound("soundDiamond");
-                    diamondCounter++;
+                    diamondCounter += (2 * diamondMulti);
+                }
+                if(cell.data.type == "Chest"){
+                    playSound("soundDiamond");
+                    diamondCounter += (10 * diamondMulti);
                 }
 
                 diamondCounterDisplay.textContent = diamondCounter;
@@ -124,6 +135,7 @@ function clickEvent(cell){
                     let emoji = "";
                     if (cell.data.type == "TNT") emoji = "🧨";
                     if (cell.data.type == "Diamond") emoji = "💎";
+                    if (cell.data.type == "Chest") emoji = "💰";
 
                     // Reset the inner HTML with a full bar again
                     cell.innerHTML = `
@@ -161,8 +173,6 @@ function bombClickEvent(cell){
 function playTileSound(cell) {
     if (cell.data.type == "TNT") {
         playSound("soundTNT");
-    } else if (cell.data.type == "Diamond") {
-        playSound("soundNormal");
     } else {
         playSound("soundNormal");
     }
@@ -201,18 +211,29 @@ function GetNextTileData(cell) {
         hpFactor: cell.data.hpFactor,
         currentLayer: cell.data.currentLayer,
     };
+    let tileDataChest = {
+        value: cell.data.value,
+        type: "Chest",
+        hp: cell.data.hp,
+        hpFactor: cell.data.hpFactor,
+        currentLayer: cell.data.currentLayer,
+    };
 
     // use weight method to generarte random tiles but to make sure what we generate
     let num = randomInRange(1, 1000000);
-    if (num >= 1 && num <= 925000) {
+    if (num >= 1 && num <= 850000) {
         return tileDataNormal;
     }
-    if (num > 900000 && num <= 950000) {
+    if (num > 850000 && num <= 900000) {
         return tileDataTNT;
     }
-    if (num > 950000 && num <= 1000000) {
+    if (num > 900000 && num <= 975000) {
         return tileDataDiamond;
     }
+    if (num > 975000 && num <= 1000000) {
+        return tileDataChest;
+    }
+
 }
 
 function layer(cell){
@@ -252,6 +273,18 @@ function atomicBomb(){
         }
         diamondCounter -= 100;
         diamondCounterDisplay.textContent = diamondCounter;
+    }
+}
+
+function upgradeDiamondMulti(){
+    if(diamondCounter >= diamondMultiCost){
+        diamondCounter -= diamondMultiCost;
+        diamondCounterDisplay.textContent = diamondCounter;
+        diamondMultiLevel += 1;
+        diamondMultiLevelDisplay.textContent = diamondMultiLevel;
+        diamondMultiCost *= 2;
+        diamondMultiCostDisplay.textContent = diamondMultiCost;
+        diamondMulti *= 2;
     }
 }
 

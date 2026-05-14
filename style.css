@@ -275,14 +275,14 @@ transform: scale(0.9);
 
 .main-layout {
     display: flex;
-    flex-direction: column; /* משנה את הכיוון לעמודה כדי שהכל יהיה אחד מתחת לשני במרכז */
-    align-items: center;    /* ממרכז אופקית */
-    justify-content: center; /* ממרכז אנכית */
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
     width: 100%;
-    min-height: 80vh;      /* נותן מספיק גובה כדי שהמרכוז יראה לעין */
+    min-height: 80vh;   
     padding: 20px;
     box-sizing: border-box;
-    gap: 20px;             /* רווח בין הכותרת/כפתור החנות ללוח */
+    gap: 20px;            
 }
 
 .game-area {
@@ -342,6 +342,7 @@ transform: scale(0.9);
     margin: 10px;
     font-size: 20px;
     cursor: pointer;
+    border: 2px solid rgb(50, 94, 252);
 }
 
 @media (max-width: 768px) {
@@ -405,23 +406,19 @@ transform: scale(0.9);
 
 .game-area .menu-btn {
     margin-bottom: 20px;
-    /* align-self מאפשר להזיז אלמנט ספציפי בתוך Flexbox */
-    align-self: flex-end; /* יזיז את הכפתור לימין */
-    /* או: align-self: flex-start; (יזיז את הכפתור לשמאל) */
+    align-self: flex-end; 
     
-    width: auto; /* מוודא שהכפתור לא נמתח על כל הרוחב */
-    padding: 10px 20px; /* מקטין מעט את הכפתור שייראה טוב בצד */
+    width: auto; 
+    padding: 10px 20px; 
 }
 
 .game-area .menu-btn {
     position: absolute;
-    top: 20px;    /* מרחק מהקצה העליון */
-    right: 20px;  /* מרחק מהקצה הימני */
-    
-    /* עיצוב קומפקטי יותר */
+    top: 20px;   
+    right: 20px; 
     width: 150px;
     font-size: 16px;
     padding: 10px;
-    z-index: 100; /* מוודא שהוא תמיד מעל דברים אחרים */
+    z-index: 100;
 }
 
