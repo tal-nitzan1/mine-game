@@ -23,11 +23,19 @@
         ▶ Play
     </button>
 
+    <div style="text-align: center; margin: 10px 0;">
+    <button id="googleLoginBtn" class="menu-btn" style="background-color: #4285F4; color: white;">
+        Sign in with Google
+    </button>
+    <p id="authStatus" style="color: white; margin-top: 5px;"></p>
+</div>
+
     <button class="menu-btn" onclick="openWorldMenu()">
         🌍 World
     </button>
 
 </div>
+
 
 <!-- WORLD MENU -->
 
@@ -62,6 +70,9 @@
 </div>
 
 <div class="main-layout" id="gameScreen">
+    <button id="logoutBtn" class="menu-btn" style="display: none; background-color: #ff4444; color: white;">
+    Logout & Save
+</button>
 
   <div class="game-area">
     <h1>💎 Diamond:<span id="diamondCounter">0</span></h1>
@@ -98,6 +109,114 @@
 
     </div>
 </div>
+<script type="module">
+  // 1. Import the new Google auth tools
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+ import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // Paste your actual config here
+  const firebaseConfig = {
+    apiKey: "AIzaSyAeMxeBOFWb1SclSJSeo6aD5xB2bbJjfB0",
+    authDomain: "minegame-27500.firebaseapp.com",
+    projectId: "minegame-27500",
+    storageBucket: "minegame-27500.firebasestorage.app",
+    messagingSenderId: "494764892590",
+    appId: "1:494764892590:web:6116b0633db3491ada683f",
+    measurementId: "G-B1EPNHNN2B"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  
+  // 2. Set up the Google Provider
+  const provider = new GoogleAuthProvider();
+
+  let playerId = null;
+  const loginBtn = document.getElementById("googleLoginBtn");
+  const authStatus = document.getElementById("authStatus");
+
+  // 3. Trigger popup when the button is clicked
+  loginBtn.addEventListener("click", () => {
+      signInWithPopup(auth, provider).catch((error) => {
+          console.error("Google Login failed:", error);
+          authStatus.textContent = "Login failed. Try again.";
+      });
+  });
+
+  const logoutBtn = document.getElementById("logoutBtn");
+
+  // Trigger save and logout when clicked
+  logoutBtn.addEventListener("click", async () => {
+      // 1. Prevent multiple clicks
+      logoutBtn.disabled = true;
+      logoutBtn.textContent = "Saving...";
+
+      // 2. Force the game to save using the function we just built in main.js
+      if (window.forceSave) {
+          await window.forceSave();
+      }
+
+      // 3. Sign out of Firebase
+      try {
+          await signOut(auth);
+          console.log("Logged out successfully");
+          
+          // 4. Reload the page to clear the grid and game variables safely
+          window.location.reload(); 
+      } catch (error) {
+          console.error("Logout failed:", error);
+          logoutBtn.disabled = false;
+          logoutBtn.textContent = "Logout & Save";
+      }
+  });
+
+  // 4. Listen for login success
+onAuthStateChanged(auth, async (user) => {
+      if (user) {
+          playerId = user.uid;
+          console.log("Logged in with Google! ID:", playerId);
+          
+          // Update the UI
+          loginBtn.style.display = "none";
+          logoutBtn.style.display = "inline-block"; // Show Logout
+          authStatus.textContent = `Welcome, ${user.displayName}!`;
+          
+          // Load their data
+          await loadGameFromFirebase();
+      } else {
+          // User is signed out
+          playerId = null;
+          loginBtn.style.display = "inline-block";
+          logoutBtn.style.display = "none"; // Hide Logout
+          authStatus.textContent = "Please sign in to save your progress.";
+      }
+  });
+  
+  // 5. The Bridge logic remains exactly the same
+  async function loadGameFromFirebase() {
+      if (!playerId) return;
+      const docRef = doc(db, "players", playerId);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+          console.log("Save found! Loading data...");
+          if (window.applyLoadedData) {
+              window.applyLoadedData(docSnap.data());
+          }
+      } else {
+          console.log("New Google player. No save data found.");
+      }
+  }
+
+  window.saveGameToFirebase = async (gameData) => {
+      if (!playerId) return; 
+      const docRef = doc(db, "players", playerId);
+      await setDoc(docRef, gameData);
+      console.log("Game auto-saved to Firebase!");
+  };
+</script>
 
 </body>
 </html>
