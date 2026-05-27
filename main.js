@@ -254,7 +254,7 @@ function upgradeDrill(){
         diamondCounterDisplay.textContent = diamondCounter;
         drillUpgradeLevel += 1;
         drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
-        drillUpgradeCost += 3;
+        drillUpgradeCost *= 2;
         drillUpgradeCostDisply.textContent = drillUpgradeCost;
         dpc++;
     }
