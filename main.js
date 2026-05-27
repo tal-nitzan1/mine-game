@@ -1,12 +1,11 @@
 const grid = document.querySelector(".grid");
 const drillUpgradeLevelDisplay = document.getElementById("drillUpgradeLevel");
 const diamondCounterDisplay = document.getElementById("diamondCounter");
-const clickSound = document.getElementById("clickSound");
 const drillUpgradeCostDisply = document.getElementById("drillUpgradeCost")
 const diamondMultiCostDisplay = document.getElementById("diamondMultiCost");
 const diamondMultiLevelDisplay = document.getElementById("diamondMultiLevel");
 
-let diamondCounter = 200000;
+let diamondCounter = 0;
 let tileCount = 25;
 let totalBlocks = 125;
 let blockBrake = 25;
@@ -15,8 +14,6 @@ let drillUpgradeCost = 1;
 let drillUpgradeLevel = 1;
 let dpc = 1;
 let boom = [];
-let bombHp = 0;
-let currentLayer = 1;
 let diamondMultiCost = 50;
 let diamondMultiLevel = 1;
 let diamondMulti = 1;
@@ -57,8 +54,6 @@ for (let i = 0; i < tileCount; i++) {
 
     // all first tiles are normal always
     cell.data = tileData;
-
-    bombHp = cell.data.hp;
 
     cell.innerHTML = `
     <span class="value">${cell.data.value}</span>
@@ -269,7 +264,7 @@ function atomicBomb(){
     if(diamondCounter >= 100){
         for(let i = 0; i < boom.length; i++){
             bombClickEvent(boom[i])
-            //playSound("soundTNT");
+            playSound("soundTNT");
         }
         diamondCounter -= 100;
         diamondCounterDisplay.textContent = diamondCounter;
@@ -317,12 +312,6 @@ function closeWorldMenu(){
 
     worldMenu.style.display = "none";
     mainMenu.style.display = "flex";
-}
-
-function selectWorld(worldNumber){
-
-    worldMenu.style.display = "none";
-    gameScreen.style.display = "flex";
 }
 
 function toggleShop() {

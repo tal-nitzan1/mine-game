@@ -14,25 +14,6 @@ min-height: 100vh;
 user-select: none;
 }
 
-/* --- Layout and Controls Additions --- */
-
-/* Main container wrapping the game and controls together */
-.main-layout {
-  display: flex;
-  flex-direction: row; 
-  align-items: center; 
-  gap: 60px; 
-}
-
-/* Game area containing the title and the grid */
-.game-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    max-width: 900px; /* או הגודל שהגדרת לגריד */
-}
-
 /* Controls area for the side buttons */
 .controls-area {
     display: flex;
@@ -90,21 +71,6 @@ border-radius: 16px;
 user-select: none; 
 position: relative;
 background-image: url("dirt.jpg");
-position: relative;
-}
-
-.hp-bar {
-  width: 140px;
-  height: 1.1em;
-  background-color: #1a1a1a; /* Very dark gray/black */
-  border: 2px solid #333; /* Dark border to frame it */
-  border-radius: 1.5em;
-  position: absolute;
-  bottom: 13px;
-  left: 15px;
-  overflow: hidden;
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.8); /* Deep sunken look */
-  opacity: 0.7;
 }
 
 .hp-fill {
@@ -289,6 +255,8 @@ transform: scale(0.9);
     display: flex;
     flex-direction: column;
     align-items: center;
+    width:100%;
+    max-width:900px;
 }
 
 .cell {
@@ -311,29 +279,6 @@ transform: scale(0.9);
     left: 10%;
     border-radius: 5px;
     overflow: hidden;
-}
-
-.hp-fill {
-    display: block;
-    height: 100%;
-    width: 100%;
-}
-
-.value {
-    font-size: 12px;
-    padding: 2px 4px;
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    border-radius: 3px;
-}
-
-.emoji {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 25px;
 }
 
 .menu-btn, .world-btn {
@@ -402,14 +347,6 @@ transform: scale(0.9);
 
 .controls-area {
     display: none;
-}
-
-.game-area .menu-btn {
-    margin-bottom: 20px;
-    align-self: flex-end; 
-    
-    width: auto; 
-    padding: 10px 20px; 
 }
 
 .game-area .menu-btn {
