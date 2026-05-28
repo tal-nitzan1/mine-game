@@ -1,3 +1,4 @@
+/*this is the body of the program*/
 body {
 margin: 0;
 height: 100vh;
@@ -48,11 +49,13 @@ user-select: none;
   transform: scale(1.05); 
 }
 
+/*the main title*/
 h1 {
 font-family: Arial, sans-serif;
 color: white;
 }
 
+/*the grid*/
 .grid {
 width: 90vw;
 max-width: 600px;
@@ -63,6 +66,7 @@ grid-template-rows: repeat(5, 1fr);
 gap: 8px;
 }
 
+/*evry box in the grid call cell*/
 .cell {
 cursor: pointer;
 transform: scale(1);  
@@ -73,6 +77,7 @@ position: relative;
 background-image: url("dirt.jpg");
 }
 
+/*the line inside the cell*/
 .hp-fill {
   display: block;
   height: 100%;
@@ -84,14 +89,12 @@ background-image: url("dirt.jpg");
   transition: width 0.15s ease-out; 
 }
 
-.cell.errorClick{
-background-image: url("error.png");
-}
-
+/*when a cell is clicked*/
 .cell.clicked {
 transform: scale(0.9);  
 }
 
+/*the number inside the cell*/
 .value {
   font-family: 'Orbitron', sans-serif;
   margin: 5px 10px;
@@ -109,6 +112,7 @@ transform: scale(0.9);
   box-shadow: 0 0 10px rgba(111, 177, 252, 0.3);
 }
 
+/*the colors of the name upgrades*/
 .improvmentText {
   font-family: 'Orbitron', sans-serif;
   margin: 5px 10px;
@@ -117,15 +121,17 @@ transform: scale(0.9);
   text-align: center;
   padding: 4px 6px; /* Slightly more space */
   /* Dark charcoal, hexagonal metal-panel look */ 
-  color: white;
+  color: rgb(255, 255, 255);
   font-weight: bold;
   font-size: 18px;
 }
 
+/*the image of the name upgrades*/
 .improvmentText img {
   vertical-align: middle;
 }
 
+/*the emoji inside the cell*/
 .emoji {
   position: absolute;
   top: 50%;
@@ -134,7 +140,9 @@ transform: scale(0.9);
   font-size: 40px;
   pointer-events: none; /* so clicks pass through emoji span */
 }
-#mainMenu{
+
+/*the main menu*/
+.mainMenu{
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -152,6 +160,7 @@ transform: scale(0.9);
     transition: opacity 0.5s ease;
 }
 
+/*the game title*/
 .game-title{
     font-size: 60px;
     color: white;
@@ -159,6 +168,7 @@ transform: scale(0.9);
     text-shadow: 0 0 20px black;
 }
 
+/*the menu buttons*/
 .menu-btn{
     width: 250px;
     padding: 20px;
@@ -182,7 +192,8 @@ transform: scale(0.9);
     background: #4364f7;
 }
 
-#worldMenu{
+/*the world menu*/
+.worldMenu{
     position: absolute;
     width: 100%;
     height: 100vh;
