@@ -332,20 +332,16 @@ window.applyLoadedData = function(data) {
         diamondCounter = data.diamonds;
         diamondCounterDisplay.textContent = diamondCounter;
     }
+    
+
+    if (data.blockBrake !== undefined) {
+        blockBrake = data.blockBrake;
+    }
+    // -------------------------------
+
     if (data.drillLevel !== undefined) {
         drillUpgradeLevel = data.drillLevel;
-        drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
-        drillUpgradeCost = Math.pow(2, drillUpgradeLevel - 1); 
-        drillUpgradeCostDisply.textContent = drillUpgradeCost;
-        dpc = drillUpgradeLevel; 
-    }
-    if (data.multiLevel !== undefined) {
-        diamondMultiLevel = data.multiLevel;
-        diamondMultiLevelDisplay.textContent = diamondMultiLevel;
-        diamondMultiCost = 50 * Math.pow(2, diamondMultiLevel - 1);
-        diamondMultiCostDisplay.textContent = diamondMultiCost;
-        diamondMulti = Math.pow(2, diamondMultiLevel - 1);
-    }
+
 
     // --- NEW: Load Grid State ---
     if (data.grid && data.grid.length === tileCount) {
@@ -423,3 +419,4 @@ window.forceSave = async function() {
 setInterval(() => {
     window.forceSave();
 }, 10000);
+
