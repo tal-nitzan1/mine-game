@@ -142,7 +142,7 @@ transform: scale(0.9);
 }
 
 /*the main menu*/
-.mainMenu{
+#mainMenu{
     position: absolute;
     width: 100%;
     height: 100vh;
@@ -193,7 +193,7 @@ transform: scale(0.9);
 }
 
 /*the world menu*/
-.worldMenu{
+#worldMenu{
     position: absolute;
     width: 100%;
     height: 100vh;

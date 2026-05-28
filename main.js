@@ -32,7 +32,7 @@ const layerImage = [
     "layer50.jpg"
 ];
 
- diamondCounterDisplay.textContent = diamondCounter;
+ diamondCounterDisplay.textContent = formatNumber(diamondCounter);
  drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
  drillUpgradeCostDisply.textContent = drillUpgradeCost;
  diamondMultiCostDisplay.textContent = diamondMultiCost;
@@ -110,7 +110,7 @@ function clickEvent(cell){
                     diamondCounter += (10 * diamondMulti);
                 }
 
-                diamondCounterDisplay.textContent = diamondCounter;
+                diamondCounterDisplay.textContent = formatNumber(diamondCounter);
                 
                 
                 cell.data = GetNextTileData(cell); // this will generate another tile
@@ -161,6 +161,7 @@ function clickEvent(cell){
 function bombClickEvent(cell){
     cell.data.hp = 0;
     clickEvent(cell);
+    diamondCounterDisplay.textContent = formatNumber(diamondCounter);
 }
 
 
@@ -180,6 +181,20 @@ function playSound(id) {
 
 function randomInRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Helper function to format large numbers (e.g., 1000 -> 1k, 1500 -> 1.5k)
+function formatNumber(diamondCounter) {
+    if (diamondCounter >= 1000000000) {
+        return (diamondCounter / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B'; // Billions
+    }
+    if (diamondCounter >= 1000000) {
+        return (diamondCounter / 1000000).toFixed(1).replace(/\.0$/, '') + 'M'; // Millions
+    }
+    if (diamondCounter >= 1000) {
+        return (diamondCounter / 1000).toFixed(1).replace(/\.0$/, '') + 'k'; // Thousands
+    }
+    return diamondCounter.toString(); // Numbers less than 1000 remain unchanged
 }
 
 // this will generate another tile from the different type we can build. the data define how the tile acts and it role.
