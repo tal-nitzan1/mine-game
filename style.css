@@ -360,11 +360,11 @@ transform: scale(0.9);
 }
 
 #logoutBtn {
-    position: fixed !important; /* מקבע את הכפתור לחלון הדפדפן */
+    position: fixed !important; 
     top: 20px !important;
     left: 20px !important;
     margin: 0 !important;
-    z-index: 9999 !important; /* מוודא שום דבר לא יסתיר אותו */
+    z-index: 9999 !important; 
     
     width: 150px;
     font-size: 16px;
