@@ -254,19 +254,19 @@ function upgradeDrill(){
         diamondCounterDisplay.textContent = diamondCounter;
         drillUpgradeLevel += 1;
         drillUpgradeLevelDisplay.textContent = drillUpgradeLevel;
-        drillUpgradeCost *= 2;
+        drillUpgradeCost *= 3;
         drillUpgradeCostDisply.textContent = drillUpgradeCost;
         dpc++;
     }
 }
 
 function atomicBomb(){
-    if(diamondCounter >= 100){
+    if(diamondCounter >= 500){
         for(let i = 0; i < boom.length; i++){
             bombClickEvent(boom[i])
             playSound("soundTNT");
         }
-        diamondCounter -= 100;
+        diamondCounter -= 500;
         diamondCounterDisplay.textContent = diamondCounter;
     }
 }
@@ -277,7 +277,7 @@ function upgradeDiamondMulti(){
         diamondCounterDisplay.textContent = diamondCounter;
         diamondMultiLevel += 1;
         diamondMultiLevelDisplay.textContent = diamondMultiLevel;
-        diamondMultiCost *= 2;
+        diamondMultiCost *= 3;
         diamondMultiCostDisplay.textContent = diamondMultiCost;
         diamondMulti *= 2;
     }
